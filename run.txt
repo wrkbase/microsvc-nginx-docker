@@ -1,0 +1,72 @@
+
+To install the Pre-Requisite Software for the Micro-Services:
+============================================================
+```
+sudo apt update
+sudo apt install net-tools
+sudo apt install pip
+sudo apt install make
+pip install -r payment/requirements.txt
+open new putty/bash shell so .profile gets called in.
+ps -ef | grep flask
+```
+
+Starting up the Micro-Services:
+===============================
+```
+make  start-native
+```
+
+Stopping and Removing all Micro-Servcies work data:
+===================================================
+```
+make clean-all
+```
+
+Checking the Status of all Micro-Servcies:
+==========================================
+```
+make status
+```
+
+Testing the working of all Micro-Servcies Website URLS:
+=======================================================
+```
+make test-native
+```
+
+Manually Starting up the Micro-Services:
+========================================
+```
+flask --app user/app.py run --host 0.0.0.0 --port 5001 &
+flask --app payment/app.py  run --host 0.0.0.0 --port 5002 &
+flask --app report/app.py  run --host 0.0.0.0 --port 5003 &
+```
+OR
+```
+pkill flask; flask --app user/app.py run --host "0.0.0.0" --port 5001 & flask --app payment/app.py  run --host "0.0.0.0" --port 5002 & flask --app report/app.py  run --host "0.0.0.0" --port 5003 &
+```
+OR
+```
+pkill flask; flask --app user/app.py run --host 0.0.0.0 --port 5001 & flask --app payment/app.py  run --host 0.0.0.0 --port 5002 & flask --app report/app.py  run --host 0.0.0.0 --port 5003 &
+```
+
+Manually Testing manually Starting up the Micro-Services:
+========================================
+```
+curl http://127.0.0.1:5001/user
+curl http://127.0.0.1:5002/payment
+curl http://127.0.0.1:5003/report
+```
+
+
+Other Reference Commands:
+========================
+```
+pgrep flask
+pkill flask
+for pid in $(ps -ef | grep "flask" | awk '{print $2}'); do kill -9 $pid; done
+find . -name "__pycache*"  -exec rm -rf '{}' \; -print
+```
+
+
